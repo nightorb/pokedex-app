@@ -39,10 +39,16 @@ let pokemonList = [
 
 // for loop that iterates over each item in pokemonList
 // writes each Pokémon's name and height on document
-
+/*
 for (let i = 0; i < pokemonList.length; i++) {
   document.write('<p>' + pokemonList[i].name + ' (height ' + pokemonList[i].height + ' m)');
   if (pokemonList[i].height > 1.5) {
     document.write(' - Wow, this is a big Pokémon!</p>');
   }
 }
+*/
+
+// forEach function that iterates over each Pokémon
+pokemonList.forEach(function(pokemon) { // function declaration is passed as parameter to forEach() function
+  document.write('<p>' + 'Name: ' + pokemon.name + ', Height: ' + pokemon.height + ' m' + '</p>');
+});
