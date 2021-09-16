@@ -44,7 +44,11 @@ let pokemonRepository = (function() {
   }
 
   function add(pokemon) {
-    pokemonList.push(pokemon);
+    if (typeof(pokemon) === { name: pokemon.name, height: pokemon.height, weight: pokemon.weight, type: pokemon.type }) {
+      pokemonList.push(pokemon);
+    }
+    
+    // pokemonList.push(pokemon);
   }
 
   return { //this return contains an object
