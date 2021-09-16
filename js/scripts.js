@@ -1,6 +1,7 @@
 // pokemonRepository variable is assigned to IIFE
 let pokemonRepository = (function() {
-  let pokemonList = [ // pokemonList only accessible through the functions returned by IIFE
+  // pokemonList only accessible through the functions returned by IIFE
+  let pokemonList = [
     {
       name: 'Bulbasaur',
       height: 0.7,
@@ -43,20 +44,18 @@ let pokemonRepository = (function() {
     return pokemonList;
   }
 
+  // adds only objects to pokemonList
   function add(pokemon) {
-    if (typeof(pokemon) === { name: pokemon.name, height: pokemon.height, weight: pokemon.weight, type: pokemon.type }) {
-      pokemonList.push(pokemon);
-    }
-    
-    // pokemonList.push(pokemon);
+    typeof pokemon === 'object' /* && Object.keys(pokemon) === ['name','height','weight','type'] */ ? pokemonList.push(pokemon) : !pokemonList.push();
   }
 
-  return { //this return contains an object
+  return {
     getAll: getAll,
     add: add
   };
 })();
 
+//will be added since it's an object
 pokemonRepository.add(
   {
     name: 'Dragonite',
@@ -65,6 +64,9 @@ pokemonRepository.add(
     type: ['Dragon','Flying']
   }
 );
+
+// will not be added since it's a string
+pokemonRepository.add('Hello');
 
 // forEach function that iterates over each Pokémon
 pokemonRepository.getAll().forEach(function(pokemon) { // function declaration as parameter to forEach() function
