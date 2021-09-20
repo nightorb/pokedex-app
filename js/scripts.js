@@ -44,9 +44,13 @@ let pokemonRepository = (function() {
     return pokemonList;
   }
 
-  // adds only objects to pokemonList
+  // adds only objects to pokemonList and checks wheter it includes the required keys
   function add(pokemon) {
-    typeof pokemon === 'object' /* && Object.keys(pokemon) === ['name','height','weight','type'] */ ? pokemonList.push(pokemon) : !pokemonList.push();
+    const props = ['name','height','weight','type'];
+    const checkObject = Object.keys(pokemon).reduce((accumulator, current) => {
+      if(!accumulator) return accumulator;
+      return props.includes(current)}, true);
+    typeof pokemon === 'object' && checkObject ? pokemonList.push(pokemon) : !pokemonList.push();
   }
 
   return {
