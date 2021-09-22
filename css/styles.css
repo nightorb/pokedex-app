@@ -43,3 +43,33 @@ h2 {
   text-align: center;
   color: #fff;
 }
+
+/* main */
+
+.pokemon-list {
+  list-style: none;
+  padding: 0;
+}
+
+.pokemon-list > li {
+  width: max-content;
+  margin: 0 auto;
+}
+
+.list-button {
+  display: inline-block;
+  width: 200px;
+  margin: 3px 0;
+  background-color: gray;
+  color: white;
+  padding: 16px 32px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  transition: 0.2s opacity;
+}
+
+.list-button:hover,
+.list-button:focus {
+  opacity: 0.8;
+}
