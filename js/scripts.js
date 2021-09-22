@@ -46,16 +46,45 @@ let pokemonRepository = (function() {
 
   // adds only objects to pokemonList and checks wheter it includes the required keys
   function add(pokemon) {
+    typeof pokemon === 'object' && 'name' in pokemon && 'height' in pokemon && 'weight' in pokemon && 'type' in pokemon ?
+    pokemonList.push(pokemon) : console.log('Pokémon is invalid.');
+
+    /* "advanced" version:
     const props = ['name','height','weight','type'];
     const checkObject = Object.keys(pokemon).reduce((accumulator, current) => {
       if(!accumulator) return accumulator;
       return props.includes(current)}, true);
-    typeof pokemon === 'object' && checkObject ? pokemonList.push(pokemon) : !pokemonList.push();
+    typeof pokemon === 'object' && checkObject ? pokemonList.push(pokemon) : !pokemonList.push() + console.log('Pokémon is invalid.');
+    */
+  }
+
+  // adds li to the HTML/DOM
+  function addListItem(pokemon) {
+    let pokemonList = document.querySelector('.pokemon-list');
+    let pokemonListItem = document.createElement('li');
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('list-button');
+    pokemonListItem.appendChild(button);
+    pokemonList.appendChild(pokemonListItem);
+    // button.addEventListener('click', showDetails);
+    buttonEvent();
+  }
+
+  // separate function for button adding event listener
+  function buttonEvent() {
+    let button = document.querySelector('button');
+    button.addEventListener('click', showDetails)
+  }
+
+  function showDetails(pokemon) {
+    console.log(pokemon.name);
   }
 
   return {
     getAll: getAll,
-    add: add
+    add: add,
+    addListItem: addListItem
   };
 })();
 
@@ -73,6 +102,6 @@ pokemonRepository.add(
 pokemonRepository.add('Hello');
 
 // forEach function that iterates over each Pokémon
-pokemonRepository.getAll().forEach(function(pokemon) { // function declaration as parameter to forEach() function
-  document.write('<p>' + 'Name: ' + pokemon.name + ', Height: ' + pokemon.height + ' m' + '</p>');
+pokemonRepository.getAll().forEach(function(pokemon) {
+  pokemonRepository.addListItem(pokemon);
 });
