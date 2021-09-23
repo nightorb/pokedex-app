@@ -67,14 +67,12 @@ let pokemonRepository = (function() {
     button.classList.add('list-button');
     pokemonListItem.appendChild(button);
     pokemonList.appendChild(pokemonListItem);
-    // button.addEventListener('click', showDetails);
-    buttonEvent();
+    buttonEvent(button, pokemon);
   }
 
-  // separate function for button adding event listener
-  function buttonEvent() {
-    let button = document.querySelector('button');
-    button.addEventListener('click', showDetails)
+  // separate function for button adding event listener, logs Pokémon's details on-click
+  function buttonEvent(button, pokemon) {
+    button.addEventListener('click', () => showDetails(pokemon))
   }
 
   function showDetails(pokemon) {
