@@ -62,16 +62,16 @@ let pokemonRepository = (function() {
   // loadList fetches data from api
   function loadList() {
     
-    //!fetch(apiURL) ? loadingMessage.showLoadingMessage() : !loadingMessage.showLoadingMessage();
+    // ---> !fetch(apiURL) ? loadingMessage.showLoadingMessage() : !loadingMessage.showLoadingMessage();
     
     return fetch(apiURL).then(function(response) {
     
-    //loadingMessage.hideLoadingMessage();
+    // ---> loadingMessage.hideLoadingMessage();
       
     return response.json();
     }).then(function(json) {
       
-      //loadingMessage.hideLoadingMessage();
+      // ---> loadingMessage.hideLoadingMessage();
       
       json.results.forEach(function(item) {
         // each item should have name and detailsURL property
@@ -85,7 +85,7 @@ let pokemonRepository = (function() {
       });
     }).catch(function(e) {
       
-      // loadingMessage.hideLoadingMessage();
+      // ---> loadingMessage.hideLoadingMessage();
       
       console.error(e);
     });
