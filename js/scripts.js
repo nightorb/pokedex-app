@@ -37,7 +37,7 @@ let pokemonRepository = (function() {
     });
   }
 
-  /* attempt to add a loading message
+  // loading message
   let loadingMessage = (function() {
     let pokemonList = document.querySelector('.pokemon-list');
     let loadingMessage = document.createElement('p');
@@ -48,8 +48,7 @@ let pokemonRepository = (function() {
     };
     
     function hideLoadingMessage() {
-      document.querySelector(loadingMessage);
-      loadingMessage.pokemonList.removeChild(loadingMessage);
+      pokemonList.removeChild(loadingMessage);
     };
     
     return {
@@ -57,22 +56,14 @@ let pokemonRepository = (function() {
       hideLoadingMessage: hideLoadingMessage
     };
   })();
-  */
 
   // loadList fetches data from api
   function loadList() {
-    
-    // ---> !fetch(apiURL) ? loadingMessage.showLoadingMessage() : !loadingMessage.showLoadingMessage();
-    
+    loadingMessage.showLoadingMessage();    
     return fetch(apiURL).then(function(response) {
-    
-    // ---> loadingMessage.hideLoadingMessage();
-      
-    return response.json();
-    }).then(function(json) {
-      
-      // ---> loadingMessage.hideLoadingMessage();
-      
+      loadingMessage.hideLoadingMessage();    
+      return response.json();
+    }).then(function(json) {      
       json.results.forEach(function(item) {
         // each item should have name and detailsURL property
         // use detailsURL to load detailed data for a given pokémon in loadDetails
@@ -84,16 +75,16 @@ let pokemonRepository = (function() {
         add(pokemon);
       });
     }).catch(function(e) {
-      
-      // ---> loadingMessage.hideLoadingMessage();
-      
+      loadingMessage.hideLoadingMessage();
       console.error(e);
     });
   }
 
   function loadDetails(pokemon) {
     let url = pokemon.detailsURL;
+    loadingMessage.showLoadingMessage();
     return fetch(url).then(function(response) {
+      loadingMessage.hideLoadingMessage();
       return response.json();
     }).then(function(details) {
       // now adding details to the pokémon item
