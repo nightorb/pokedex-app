@@ -31,37 +31,31 @@ let pokemonRepository = (function() {
     button.addEventListener('click', () => showDetails(pokemon))
   }
 
-  function showDetails(pokemon) {
-    loadDetails(pokemon).then(function() {
-      console.log(pokemon);
-    });
-  }
-
   // loading message
   let loadingMessage = (function() {
     let pokemonList = document.querySelector('.pokemon-list');
     let loadingMessage = document.createElement('p');
     loadingMessage.innerText = 'Loading Pokédex...';
     
-    function showLoadingMessage() {
+    function show() {
       pokemonList.appendChild(loadingMessage);
     };
     
-    function hideLoadingMessage() {
+    function hide() {
       pokemonList.removeChild(loadingMessage);
     };
     
     return {
-      showLoadingMessage: showLoadingMessage,
-      hideLoadingMessage: hideLoadingMessage
+      show: show,
+      hide: hide
     };
   })();
-
+  
   // loadList fetches data from api
   function loadList() {
-    loadingMessage.showLoadingMessage();    
+    loadingMessage.show();    
     return fetch(apiURL).then(function(response) {
-      loadingMessage.hideLoadingMessage();    
+      loadingMessage.hide();    
       return response.json();
     }).then(function(json) {      
       json.results.forEach(function(item) {
@@ -75,26 +69,111 @@ let pokemonRepository = (function() {
         add(pokemon);
       });
     }).catch(function(e) {
-      loadingMessage.hideLoadingMessage();
+      loadingMessage.hide();
       console.error(e);
     });
   }
 
   function loadDetails(pokemon) {
+    loadingMessage.show();
     let url = pokemon.detailsURL;
-    loadingMessage.showLoadingMessage();
     return fetch(url).then(function(response) {
-      loadingMessage.hideLoadingMessage();
+      loadingMessage.hide();
       return response.json();
     }).then(function(details) {
       // now adding details to the pokémon item
-      pokemon.imageURL = details.sprites.front_default;
+      pokemon.id = details.id;
+      pokemon.imageURL = details.sprites.other.dream_world.front_default;
       pokemon.height = details.height;
+      pokemon.weight = details.weight;
       pokemon.types = details.types;
+      pokemon.abilities = details.abilities;
     }).catch(function(e) {
+      loadingMessage.hide();
       console.error(e);
     });
   }  
+
+  function showDetails(pokemon) {
+    loadDetails(pokemon).then(function() {
+      pokemonDetails.showModal(pokemon);
+    });
+  }
+
+  let pokemonDetails = (function () {
+    let modalContainer = document.querySelector('#modal-container');
+
+    function showModal(pokemon) {
+      // remove existing modal content
+      modalContainer.innerHTML = '';
+
+      let modal = document.createElement('div');
+      modal.classList.add('modal');
+      
+      // modal title
+      let titleElement = document.createElement('h1');
+      titleElement.innerText = pokemon.name;
+
+      // modal content
+      let pokemonImage = document.createElement('img');
+      pokemonImage.src = pokemon.imageURL;
+      
+      let contentElement = document.createElement('p');
+
+      let pokemonTypes = [];
+      Object.keys(pokemon.types).forEach(key => {
+        pokemonTypes.push(' ' + pokemon.types[key].type.name);
+      });
+
+      let pokemonAbilities = [];
+      Object.keys(pokemon.abilities).forEach(key => {
+        pokemonAbilities.push(' ' + pokemon.abilities[key].ability.name);
+      });
+
+      contentElement.innerText = 
+        '# ' + pokemon.id + '\r\n' +
+        'Height: ' + pokemon.height / 10 + ' m' + '\r\n' +
+        'Weight: ' + pokemon.weight / 10 + ' kg' + '\r\n' +
+        'Type: ' + pokemonTypes + '\r\n' +
+        'Abilities: ' + pokemonAbilities;
+
+      // modal close button
+      let closeButton = document.createElement('button');
+      closeButton.classList.add('modal-close');
+      closeButton.innerText = 'Close';
+      closeButton.addEventListener('click', hideModal);
+
+      modal.appendChild(titleElement);
+      modal.appendChild(pokemonImage);
+      modal.appendChild(contentElement);
+      modal.appendChild(closeButton);
+      modalContainer.appendChild(modal);
+      modalContainer.classList.add('is-visible');
+    }
+
+    function hideModal() {
+      modalContainer.classList.remove('is-visible');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+        hideModal();
+      }
+    });
+
+    // only close if user clicks on overlay, not when clicking inside modal
+    modalContainer.addEventListener('click', (e) => {
+      let target = e.target;
+      if (target === modalContainer) {
+        hideModal();
+      }
+    });
+
+    return {
+      showModal: showModal,
+      hideModal: hideModal
+    }
+  })();
 
   return {
     getAll: getAll,
