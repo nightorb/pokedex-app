@@ -18,11 +18,13 @@ let pokemonRepository = (function() {
   function addListItem(pokemon) {
     let pokemonList = document.querySelector('.list-group');
     let pokemonListItem = document.createElement('li');
-    pokemonListItem.classList.add('group-list-item');
+    pokemonListItem.classList.add('list-group-item');
 
     let button = document.createElement('button');
     button.innerText = pokemon.name;
     button.classList.add('btn');
+    button.setAttribute('data-toggle','modal');
+    button.setAttribute('data-target','#modal-container;')
 
     pokemonListItem.appendChild(button);
     pokemonList.appendChild(pokemonListItem);
@@ -99,8 +101,54 @@ let pokemonRepository = (function() {
 
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function() {
-      pokemonDetails.showModal(pokemon);
+      showModal(pokemon);
     });
+  }
+
+  function showModal(pokemon) {
+    let modalBody = document.querySelector('.modal-body');
+    let modalTitle = document.querySelector('.modal-title');
+
+    modalBody.innerText = '';
+    modalTitle.innerText = '';
+
+    // modal title
+    let titleElement = document.createElement('h1');
+    titleElement.innerText = '#' + pokemon.id + ' ' + pokemon.name;
+
+    //modal content
+    let pokemonImage = document.createElement('img');
+    pokemonImage.src = pokemon.imageURL;
+    pokemonImage.classList.add('modal-img');
+
+    let heightElement = document.createElement('p')
+    heightElement.innerText = 'Height: ' + pokemon.height / 10 + ' m';
+
+    let weightElement = document.createElement('p');
+    weightElement.innerText = 'Weight: ' + pokemon.weight / 10 + ' kg';
+
+    let pokemonTypes = [];
+    Object.keys(pokemon.types).forEach(key => {
+      pokemonTypes.push(' ' + pokemon.types[key].type.name);
+    });
+
+    let typesElement = document.createElement('p');
+    typesElement.innerText = 'Type: ' + pokemonTypes;
+
+    let pokemonAbilities = [];
+    Object.keys(pokemon.abilities).forEach(key => {
+      pokemonAbilities.push(' ' + pokemon.abilities[key].ability.name);
+    });
+
+    let abilitiesElement = document.createElement('p');
+    abilitiesElement.innerText = 'Abilities: ' + pokemonAbilities;
+
+    modalTitle.appendChild(titleElement);
+    modalBody.appendChild(pokemonImage);
+    modalBody.appendChild(heightElement);
+    modalBody.appendChild(weightElement);
+    modalBody.appendChild(typesElement);
+    modalBody.appendChild(abilitiesElement);
   }
 
   return {
