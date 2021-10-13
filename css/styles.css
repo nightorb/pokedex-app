@@ -8,46 +8,42 @@
 /* general stylings */
 
 * {
+<<<<<<< Updated upstream
   box-sizing: border-box;
 }
 
 body {
+=======
+  padding: 0;
+  margin: 0;
+>>>>>>> Stashed changes
   font-family: 'Yantramanav', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.25;
-  text-align: center;
 }
 
+<<<<<<< Updated upstream
+=======
+body {
+  padding-top: 100px;
+}
+
+/*
+>>>>>>> Stashed changes
 h1,
 h2 {
   font-family: 'Roboto Condensed', sans-serif;
 }
 
-/* header */
-
-.page-header {
-  width: 100%;
-  height: 100px;
-  display: inline-block;
-  background-color: var(--primariy-color);
+li > .btn {
+  height: 50px;
 }
 
-.wrap {
-  width: 800px;
-  margin: 0 auto;
-}
-
-.logo {
-  margin-top: 20px;
-  text-align: center;
-  color: #fff;
-}
-
-/* main */
-
-.pokemon-list {
+.group-list-item {
+  margin: 3px;
   list-style: none;
+<<<<<<< Updated upstream
   padding: 0;
 }
 
@@ -72,6 +68,8 @@ h2 {
 .list-button:hover,
 .list-button:focus {
   opacity: 0.8;
+=======
+>>>>>>> Stashed changes
 }
 
 #modal-container {
