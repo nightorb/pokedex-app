@@ -16,7 +16,7 @@ let pokemonRepository = (function() {
 
   // adds li to the HTML/DOM
   function addListItem(pokemon) {
-    let pokemonList = document.querySelector('.list-group');
+    let pokemonList = document.querySelector('.pokemon-list');
     let pokemonListItem = document.createElement('li');
     pokemonListItem.classList.add('group-list-item','col-xl-3','col-md-4','col-8');
 
@@ -38,7 +38,7 @@ let pokemonRepository = (function() {
 
   // loading message
   let loadingMessage = (function() {
-    let pokemonList = document.querySelector('.list-group');
+    let pokemonList = document.querySelector('.pokemon-list');
     let loadingMessage = document.createElement('p');
     loadingMessage.innerText = 'Loading Pokédex...';
     
