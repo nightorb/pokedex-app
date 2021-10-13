@@ -4,58 +4,96 @@
 <head>
   <meta charset="utf-8">
   <title>Pokedéx</title>
-  <link rel="shortcut icon" href="#">
+  <link rel="icon" href="./img/favicon-32x32.png">
   
   <!-- stylesheet link required for Bootstrap; normalize css and box-styling:border-box is included by default -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
   crossorigin="anonymous">
 
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&family=Yantramanav:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Yantramanav:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
+
   <header>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-danger">
-      <a class="navbar-brand" href="#">
-        <img src="./img/pokeball-logo.png" width="50" height="50" alt="Pokéball Logo">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <form class="d-flex">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-danger">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="./img/pokeball-logo.png" class="pokeball-logo" width="50" height="50" alt="Pokéball Logo">
+          <h1 class="brand-name">Pokédex App</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <a href="#" class="app-info-link" data-toggle="modal" data-target="#app-info-modal">App Info</a>
+          <form class="form my-2 my-lg-0">
+            <input class="form-control mr-sm-2" id="filter" type="search" placeholder="Search Pokémon" aria-label="Search Pokémon">
+          </form>
+        </div>
       </div>
     </nav>
   </header>
 
   <main class="content">
-    <div class="container-fluid">
+
+    <div class="container">
+      <h1>
+        <img src="./img/pokedex.png" class="pokedex-logo" alt="Pokedéx Logo">
+        Kanto Pokédex</h1>
       <ul class="pokemon-list unstyled-list row justify-content-center"></ul>
     </div>
-    <div class="modal fade" id="pokemon-modal" tabindex="-1" role="dialog" aria-labelledby="modal-container-label" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+
+    <div class="modal fade" id="app-info-modal" tabindex="-1" role="dialog" aria-labelledby="app-info-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modal-container-label">...</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+          <div class="modal-header justify-content-center">
+            <h1 class="modal-title">App Info</h1>
           </div>
           <div class="modal-body">
-            ...
+            <p>
+              View code on
+              <a href="https://github.com/nightorb/pokedex-app.git" target="_blank">GitHub</a>
+            </p>
+            <p><strong>Technologies used:</strong></p>
+            <ul>
+              <li>HTML, CSS and Bootstrap</li>
+              <li>JavaScript</li>
+              <li>RESTful PokéApi V2</li>
+            </ul>
+            <p><strong>The following components are created using Bootstrap:</strong></p>
+            <ul>
+              <li>Navbar</li>
+              <li>Modals</li>
+              <li>Buttons</li>
+            </ul>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn modal-close-button" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="modal fade" id="pokemon-modal" tabindex="-1" role="dialog" aria-labelledby="pokemon-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header justify-content-center">
+            <h1 class="modal-title pokemon-modal-title" id="modal-container-label">...</h1>
+          </div>
+          <div class="modal-body pokemon-modal-body">
+            ...
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn modal-close-button" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </main>
 
   <script src="js/promise-polyfill.js"></script>
