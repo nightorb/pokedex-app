@@ -8,6 +8,21 @@ let pokemonRepository = (function() {
     return pokemonList;
   }
 
+  // filter pokemon
+  let filter = document.querySelector('#filter');
+  filter.addEventListener('input', ()=> {
+    let pokemon = document.querySelectorAll('.group-list-item');
+    let value = filter.value.toLowerCase();
+
+    pokemon.forEach(function(pokemon) {
+      if (pokemon.innerText.toLowerCase().indexOf(value) > -1) {
+        pokemon.style.display = '';
+      } else {
+        pokemon.style.display = 'none';
+      }
+    });
+  });
+
   // adds only objects to pokemonList and checks wheter it includes the required keys
   function add(pokemon) {
     typeof pokemon === 'object' && 'name' in pokemon && 'detailsURL' in pokemon ?
@@ -22,7 +37,7 @@ let pokemonRepository = (function() {
 
     let button = document.createElement('button');
     button.innerText = pokemon.name;
-    button.classList.add('btn','btn-dark','btn-block');
+    button.classList.add('btn','btn-info','btn-block');
     button.setAttribute('data-toggle','modal');
     button.setAttribute('data-target','#pokemon-modal;')
 
@@ -106,8 +121,8 @@ let pokemonRepository = (function() {
   }
 
   function showModal(pokemon) {
-    let modalBody = document.querySelector('.modal-body');
-    let modalTitle = document.querySelector('.modal-title');
+    let modalBody = document.querySelector('.pokemon-modal-body');
+    let modalTitle = document.querySelector('.pokemon-modal-title');
 
     modalBody.innerText = '';
     modalTitle.innerText = '';
@@ -115,6 +130,7 @@ let pokemonRepository = (function() {
     // modal title
     let titleElement = document.createElement('h1');
     titleElement.innerText = '#' + pokemon.id + ' ' + pokemon.name;
+    titleElement.classList.add('title-element');
 
     //modal content
     let pokemonImage = document.createElement('img');
@@ -123,9 +139,11 @@ let pokemonRepository = (function() {
 
     let heightElement = document.createElement('p')
     heightElement.innerText = 'Height: ' + pokemon.height / 10 + ' m';
+    heightElement.classList.add('height-element');
 
     let weightElement = document.createElement('p');
     weightElement.innerText = 'Weight: ' + pokemon.weight / 10 + ' kg';
+    weightElement.classList.add('weight-element');
 
     let pokemonTypes = [];
     Object.keys(pokemon.types).forEach(key => {
@@ -134,6 +152,7 @@ let pokemonRepository = (function() {
 
     let typesElement = document.createElement('p');
     typesElement.innerText = 'Type: ' + pokemonTypes;
+    typesElement.classList.add('types-element');
 
     let pokemonAbilities = [];
     Object.keys(pokemon.abilities).forEach(key => {
@@ -142,6 +161,7 @@ let pokemonRepository = (function() {
 
     let abilitiesElement = document.createElement('p');
     abilitiesElement.innerText = 'Abilities: ' + pokemonAbilities;
+    abilitiesElement.classList.add('abilities-element');
 
     modalTitle.appendChild(titleElement);
     modalBody.appendChild(pokemonImage);
