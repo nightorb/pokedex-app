@@ -18,9 +18,20 @@ let pokemonRepository = (function() {
   function addListItem(pokemon) {
     let pokemonList = document.querySelector('.pokemon-list');
     let pokemonListItem = document.createElement('li');
+<<<<<<< Updated upstream
     let button = document.createElement('button');
     button.innerText = pokemon.name;
     button.classList.add('list-button');
+=======
+    pokemonListItem.classList.add('group-list-item','col-xl-3','col-md-4','col-8');
+
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('btn','btn-dark','btn-block');
+    button.setAttribute('data-toggle','modal');
+    button.setAttribute('data-target','#pokemon-modal;')
+
+>>>>>>> Stashed changes
     pokemonListItem.appendChild(button);
     pokemonList.appendChild(pokemonListItem);
     buttonEvent(button, pokemon);
@@ -169,11 +180,26 @@ let pokemonRepository = (function() {
       }
     });
 
+<<<<<<< Updated upstream
     return {
       showModal: showModal,
       hideModal: hideModal
     }
   })();
+=======
+    let abilitiesElement = document.createElement('p');
+    abilitiesElement.innerText = 'Abilities: ' + pokemonAbilities;
+
+    modalTitle.appendChild(titleElement);
+    modalBody.appendChild(pokemonImage);
+    modalBody.appendChild(heightElement);
+    modalBody.appendChild(weightElement);
+    modalBody.appendChild(typesElement);
+    modalBody.appendChild(abilitiesElement);
+
+    $('#pokemon-modal').modal('toggle');
+  }
+>>>>>>> Stashed changes
 
   return {
     getAll: getAll,
