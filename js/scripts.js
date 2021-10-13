@@ -16,15 +16,15 @@ let pokemonRepository = (function() {
 
   // adds li to the HTML/DOM
   function addListItem(pokemon) {
-    let pokemonList = document.querySelector('.list-group');
+    let pokemonList = document.querySelector('.pokemon-list');
     let pokemonListItem = document.createElement('li');
-    pokemonListItem.classList.add('list-group-item');
+    pokemonListItem.classList.add('group-list-item','col-xl-3','col-md-4','col-8');
 
     let button = document.createElement('button');
     button.innerText = pokemon.name;
-    button.classList.add('btn');
+    button.classList.add('btn','btn-dark','btn-block');
     button.setAttribute('data-toggle','modal');
-    button.setAttribute('data-target','#modal-container;')
+    button.setAttribute('data-target','#pokemon-modal;')
 
     pokemonListItem.appendChild(button);
     pokemonList.appendChild(pokemonListItem);
@@ -38,7 +38,7 @@ let pokemonRepository = (function() {
 
   // loading message
   let loadingMessage = (function() {
-    let pokemonList = document.querySelector('.list-group');
+    let pokemonList = document.querySelector('.pokemon-list');
     let loadingMessage = document.createElement('p');
     loadingMessage.innerText = 'Loading Pokédex...';
     
@@ -149,6 +149,8 @@ let pokemonRepository = (function() {
     modalBody.appendChild(weightElement);
     modalBody.appendChild(typesElement);
     modalBody.appendChild(abilitiesElement);
+
+    $('#pokemon-modal').modal('toggle');
   }
 
   return {
