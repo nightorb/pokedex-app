@@ -37,7 +37,7 @@ let pokemonRepository = (function() {
 
     let button = document.createElement('button');
     button.innerText = pokemon.name;
-    button.classList.add('btn','btn-info','btn-block');
+    button.classList.add('btn','btn-block');
     button.setAttribute('data-toggle','modal');
     button.setAttribute('data-target','#pokemon-modal;')
 
@@ -171,6 +171,30 @@ let pokemonRepository = (function() {
     modalBody.appendChild(abilitiesElement);
 
     $('#pokemon-modal').modal('toggle');
+  }
+
+  // scroll back to top button
+  let goToTopButton = document.getElementById('go-to-top');
+
+  // when user scrolls down 70px from the top of the document, show the button
+  window.onscroll = function() {
+    scrollFunction();
+  }
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      goToTopButton.style.display = 'block';
+    } else {
+      goToTopButton.style.display = 'none';
+    }
+  }
+
+  // when user clicks on button, scroll to top of the document
+  goToTopButton.addEventListener('click', goToTop);
+
+  function goToTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
   }
 
   return {
