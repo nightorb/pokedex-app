@@ -3,7 +3,7 @@ let pokemonRepository = (function() {
   // pokemonList only accessible through the functions returned by IIFE
   let pokemonList = [];
   let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-  
+
   function getAll() {
     return pokemonList;
   }
@@ -56,28 +56,28 @@ let pokemonRepository = (function() {
     let pokemonList = document.querySelector('.pokemon-list');
     let loadingMessage = document.createElement('p');
     loadingMessage.innerText = 'Loading Pokédex...';
-    
+
     function show() {
       pokemonList.appendChild(loadingMessage);
-    };
-    
+    }
+
     function hide() {
       pokemonList.removeChild(loadingMessage);
-    };
-    
+    }
+
     return {
       show: show,
       hide: hide
     };
   })();
-  
+
   // loadList fetches data from api
   function loadList() {
-    loadingMessage.show();    
+    loadingMessage.show();
     return fetch(apiURL).then(function(response) {
-      loadingMessage.hide();    
+      loadingMessage.hide();
       return response.json();
-    }).then(function(json) {      
+    }).then(function(json) {
       json.results.forEach(function(item) {
         // each item should have name and detailsURL property
         // use detailsURL to load detailed data for a given pokémon in loadDetails
@@ -95,10 +95,8 @@ let pokemonRepository = (function() {
   }
 
   function loadDetails(pokemon) {
-    loadingMessage.show();
     let url = pokemon.detailsURL;
     return fetch(url).then(function(response) {
-      loadingMessage.hide();
       return response.json();
     }).then(function(details) {
       // now adding details to the pokémon item
@@ -109,10 +107,9 @@ let pokemonRepository = (function() {
       pokemon.types = details.types;
       pokemon.abilities = details.abilities;
     }).catch(function(e) {
-      loadingMessage.hide();
       console.error(e);
     });
-  }  
+  }
 
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function() {
