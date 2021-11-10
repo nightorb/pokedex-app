@@ -1,0 +1,23 @@
+{
+  "name": "pokedex-app",
+  "version": "1.0.0",
+  "description": "The Pokédex App is a small web application that loads data from an external API and enables the viewing of details about each Pokémon. It contains the original 150 Pokémon and displays basic data such as height, weight, types, abilities and an image of the Pokémon.",
+  "main": "scripts.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^8.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nightorb/pokedex-app.git"
+  },
+  "author": "nightorb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nightorb/pokedex-app/issues"
+  },
+  "homepage": "https://github.com/nightorb/pokedex-app#readme"
+}
